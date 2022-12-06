@@ -1,4 +1,4 @@
-input_path = 'advent_of_code_2020/challenges/Day 10: Adapter Array/input'
+input_path = 'advent_of_code_2020/challenges/Day 10: Adapter Array/input1'
 
 _graph = {}
 adapters = []
@@ -59,3 +59,21 @@ with open(input_path) as f:
     if ((path[i] - path[i - 1]) == 3): threes += 1
   print(ones, threes)
 
+def options_taking(_range, _path):
+  if (_path[_range[1]] == _path[-1]): return 0
+
+  if (must_include(_path[_range[0]], _path[_range[2]])):
+    return 1 + options_taking([_range[0], _range[2], _range[2] + 1], path)
+  return 1
+
+# Part 2
+
+def conbinations_from_array(j):
+  counter = 1
+  for i in range(j, path.__len__() - 1):
+    res = options_taking([i -1, i, i + 1], path)
+    print('mirando el rango con values: ', [path[i - 1], path[i], path[i + 1]], ' el resultado es : ', res)
+    counter *= res
+  return counter
+
+print(conbinations_from_array(1))
