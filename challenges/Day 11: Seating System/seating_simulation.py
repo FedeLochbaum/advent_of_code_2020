@@ -14,14 +14,29 @@ def count_occupied_seats(graph): # One can omit this just calculating the total 
       if (e == '#'): occupied_seats += 1
   return occupied_seats
 
+def look_until_see_seat(point, next_point, graph):
+  seat = None
+  while(True):
+    next_r, next_c = next_point(point[0], point[1])
+    if (next_r < 0 or next_r >= graph.__len__()): break
+    if (next_c < 0 or next_c >= graph[0].__len__()): break
+
+    elem = graph[next_r][next_c]
+    if (elem != '.'): return elem
+    point = [next_r, next_c]
+  return seat
+
 def adjacent_occupied_count(row, col, graph):
   count = 0
-  for _row in range(row - 1, row + 2):
-    for _col in range(col - 1, col + 2):
-      if (_row == row and _col == col): continue
-      if (_row < 0 or _row >= graph.__len__()): continue
-      if (_col < 0 or _col >= graph[0].__len__()): continue
-      if (graph[_row][_col] == '#'): count += 1
+  if (look_until_see_seat([row, col], lambda r, c: [r - 1, c - 1], graph) == '#'): count += 1
+  if (look_until_see_seat([row, col], lambda r, c: [r - 1, c], graph) == '#'): count += 1
+  if (look_until_see_seat([row, col], lambda r, c: [r - 1, c + 1], graph) == '#'): count += 1
+  if (look_until_see_seat([row, col], lambda r, c: [r, c - 1], graph) == '#'): count += 1
+  if (look_until_see_seat([row, col], lambda r, c: [r, c + 1], graph) == '#'): count += 1
+  if (look_until_see_seat([row, col], lambda r, c: [r + 1, c - 1], graph) == '#'): count += 1
+  if (look_until_see_seat([row, col], lambda r, c: [r + 1, c], graph) == '#'): count += 1
+  if (look_until_see_seat([row, col], lambda r, c: [r + 1, c + 1], graph) == '#'): count += 1
+
   return count
 
 def simulate_seating(graph):
@@ -35,7 +50,7 @@ def simulate_seating(graph):
       adjacents = adjacent_occupied_count(row, col, graph)
       if (seat == 'L' and adjacents == 0):
         copy[row][col] = '#'; changed = True; continue # Ocuppy it
-      if (seat == '#' and adjacents > 3):
+      if (seat == '#' and adjacents > 4): # 3 -> 4
         copy[row][col] = 'L'; changed = True; continue # Release it
   return changed, copy
 
@@ -45,5 +60,4 @@ with open(input_path) as f:
 
 while(True):
   changed, _graph = simulate_seating(_graph)
-  # print_graph(_graph)
   if (not changed): print(count_occupied_seats(_graph)); break
