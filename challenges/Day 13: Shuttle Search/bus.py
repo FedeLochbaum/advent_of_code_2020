@@ -12,7 +12,6 @@ with open(input_path) as f:
       i += 1
       if num == 'x': continue
       id = int(num)
-      if (id == i): print('hola! esto es rarin')
       buses.append([id, i])
       t = to_minimize / id
       times = int(t) + (1 if (t - int(t)) > 0 else 0)
@@ -21,20 +20,12 @@ with open(input_path) as f:
 
 print('Part 1: ', min_[1])
 
-t = buses[0][0] * (100000000000000 / buses[0][0])
+index = 1
+t = 0
 
-def check_buses(t):
-  res = True
+for bus in buses:
+  while True:
+    t += index
+    if (t + bus[1]) % bus[0] == 0: index = index * bus[0]; break
 
-  for bus in buses[1:]:
-    if (t % bus[0] != (bus[0] - bus[1])): return False
-
-  return res
-
-while(True):
-  t += buses[0][0]
-  # if (t < 100000000000000): continue
-  if(check_buses(t)): print('Part 2:', t); break
-
-  agarro (n, i),
- 
+print('Part 2: ', t)
