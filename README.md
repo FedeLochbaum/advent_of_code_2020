@@ -33,3 +33,5 @@
 [Day 14: Docking Data](https://github.com/FedeLochbaum/advent_of_code_2020/blob/main/challenges/Day%2014:%20Docking%20Data/emulator.py)
 
 [Day 15: Rambunctious Recitation](https://github.com/FedeLochbaum/advent_of_code_2020/blob/main/challenges/Day%2015:%20Rambunctious%20Recitation/game.py)
+
+[Day 16: Ticket Translation](https://github.com/FedeLochbaum/advent_of_code_2020/blob/main/challenges/Day%2016:%20Ticket%20Translation/scanner.py)
