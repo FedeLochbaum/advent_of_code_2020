@@ -1,17 +1,18 @@
-input_path = 'advent_of_code_2020/challenges/Day 19: Monster Messages/input0'
+input_path = 'advent_of_code_2020/challenges/Day 19: Monster Messages/input'
 
-sequence_rule = lambda rules: { 'type': 'SEQ', 'rules': rules } # rules is an array of references
-or_rule = lambda rules: { 'type': 'OR', 'rules': rules } #
+sequence_rule = lambda rules: { 'type': 'SEQ', 'rules': rules }
+or_rule = lambda rules: { 'type': 'OR', 'rules': rules }
 match_rule = lambda char: { 'type': 'MATCH', 'match': char }
 
-memo = {} # str -> { rule -> T | F }
+memo = {} # str -> { rule -> index }
 rules = []
 matchs = 0
 
 def check_all(rules, string):
   j = -1
   for i in rules:
-    j = check_rule(i, string[j + 1:])
+    j +=1
+    j = check_rule(i, string[j:])
     if j == -1: return -1
   return j
 
@@ -31,7 +32,6 @@ def check_rule(rule_index, string):
   if (rule_index not in memo[string]):
     rule = rules[rule_index]
     memo[string][rule_index] = MATCH_BY_TYPE[rule['type']](rule, string)
-
   return memo[string][rule_index]
 
 with open(input_path) as f:
@@ -40,6 +40,8 @@ with open(input_path) as f:
     if (line == '\n'): end_rules = True; continue
     if (not end_rules):
       rule = line[:-1].split(': ')[1]
+      if rule == '42': rule = '42 | 42 8'
+      if rule == '42 31': rule = '42 31 | 42 11 31'
       ors = rule.split(' | ')
       if (len(ors) > 1): rules.append(or_rule(list(map(lambda e: list(map(int, e.split(' '))) , ors)))); continue
       elems = rule.split(' ')
@@ -48,4 +50,4 @@ with open(input_path) as f:
     else:
       if (check_rule(0, line[:-1]) != -1): matchs += 1
 
-print('Part 1: ', matchs)
+print('Part 2: ', matchs)
