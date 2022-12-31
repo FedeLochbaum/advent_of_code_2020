@@ -35,3 +35,5 @@
 [Day 15: Rambunctious Recitation](https://github.com/FedeLochbaum/advent_of_code_2020/blob/main/challenges/Day%2015:%20Rambunctious%20Recitation/game.py)
 
 [Day 16: Ticket Translation](https://github.com/FedeLochbaum/advent_of_code_2020/blob/main/challenges/Day%2016:%20Ticket%20Translation/scanner.py)
+
+[Day 17: Conway Cubes](https://github.com/FedeLochbaum/advent_of_code_2020/blob/main/challengesDay%2017:%20Conway%20Cubes/dimension_pocket.py)

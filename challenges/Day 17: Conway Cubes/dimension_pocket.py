@@ -5,8 +5,8 @@ import itertools
 points = set([])
 cycles = 6
 
-neighboring = list(itertools.product([-1,0,1], repeat=3))
-def neighbors(p): return map(lambda v: (p[0] + v[0], p[1] + v[1], p[2] + v[2]), neighboring)
+neighboring = list(itertools.product([-1,0,1], repeat=4))
+def neighbors(p): return map(lambda v: (p[0] + v[0], p[1] + v[1], p[2] + v[2], p[3] + v[3]), neighboring)
 
 def cycle(_points):
   result = set()
@@ -34,9 +34,9 @@ with open(input_path) as f:
   y = 0
   for line in f:
     for x in range(len(line[:-1])):
-      if (line[x] == '#'): points.add((x, y, 0))
+      if (line[x] == '#'): points.add((x, y, 0, 0))
     y += 1
 
 for _ in range(cycles): points = cycle(points)
 
-print('Part 1: ', len(points))
+print('Part 2: ', len(points))
